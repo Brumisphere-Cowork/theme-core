@@ -23,6 +23,7 @@ defined( 'ABSPATH' ) || exit;
  *             'menus'    => array( 'principal' => 'Menu principal' ),
  *             'tailles'  => array( 'carte' => array( 640, 420, true ) ),
  *             'supports' => array( 'post-thumbnails', 'title-tag' ),
+ *             // Avec paramètres : 'supports' => array( 'title-tag' => true, 'html5' => array( 'script' ) ),
  *         )
  *     );
  */
@@ -31,7 +32,7 @@ final class Bootstrap {
 	/**
 	 * Version du socle, utilisée pour le cache-busting des assets.
 	 */
-	public const VERSION = '1.0.0';
+	public const VERSION = '1.0.4';
 
 	/**
 	 * Empêche une double amorce si functions.php est inclus deux fois.
@@ -118,9 +119,14 @@ final class Bootstrap {
 		$supports = self::config( 'supports', array() );
 
 		if ( is_array( $supports ) ) {
-			foreach ( $supports as $support ) {
-				if ( is_string( $support ) ) {
-					add_theme_support( $support );
+			foreach ( $supports as $cle => $valeur ) {
+				// 'title-tag', 'title-tag' => true, ou 'html5' => array( 'script', 'style' ).
+				if ( is_int( $cle ) && is_string( $valeur ) ) {
+					add_theme_support( $valeur );
+				} elseif ( is_string( $cle ) && true === $valeur ) {
+					add_theme_support( $cle );
+				} elseif ( is_string( $cle ) && is_array( $valeur ) ) {
+					add_theme_support( $cle, $valeur );
 				}
 			}
 		}
