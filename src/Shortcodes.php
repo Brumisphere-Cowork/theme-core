@@ -65,8 +65,8 @@ final class Shortcodes {
 	 * qui permet d'alterner PHP et HTML sans concaténer des chaînes, source classique
 	 * d'échappement oublié.
 	 *
-	 * @param string                        $nom      Nom du shortcode, sans crochets.
-	 * @param callable                      $rendu    Reçoit les attributs résolus et le contenu.
+	 * @param string                         $nom      Nom du shortcode, sans crochets.
+	 * @param callable                       $rendu    Reçoit les attributs résolus et le contenu.
 	 * @param array<string, string|int|bool> $defauts  Attributs acceptés et leurs valeurs par défaut.
 	 */
 	public static function rendre( string $nom, callable $rendu, array $defauts = array() ): void {

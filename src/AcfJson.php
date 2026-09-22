@@ -60,7 +60,7 @@ final class AcfJson {
 			return $chemin;
 		}
 
-		return is_writable( $cible ) ? $cible : $chemin;
+		return wp_is_writable( $cible ) ? $cible : $chemin;
 	}
 
 	/**

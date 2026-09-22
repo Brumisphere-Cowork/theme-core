@@ -32,10 +32,12 @@ final class Bootstrap {
 	/**
 	 * Version du socle, utilisée pour le cache-busting des assets.
 	 */
-	public const VERSION = '1.0.4';
+	public const VERSION = '1.0.23';
 
 	/**
 	 * Empêche une double amorce si functions.php est inclus deux fois.
+	 *
+	 * @var bool
 	 */
 	private static bool $amorce = false;
 
@@ -120,7 +122,8 @@ final class Bootstrap {
 
 		if ( is_array( $supports ) ) {
 			foreach ( $supports as $cle => $valeur ) {
-				// 'title-tag', 'title-tag' => true, ou 'html5' => array( 'script', 'style' ).
+				// Trois formes admises : le nom seul, le nom associé à true, ou le nom associé
+				// à sa liste de paramètres (html5 attend la liste des types de balisage).
 				if ( is_int( $cle ) && is_string( $valeur ) ) {
 					add_theme_support( $valeur );
 				} elseif ( is_string( $cle ) && true === $valeur ) {

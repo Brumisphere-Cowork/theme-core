@@ -29,6 +29,12 @@ final class Path {
 	 * @return string|null Chemin absolu réel, ou null si le fichier est hors périmètre.
 	 */
 	public static function dans( string $racine, string $fichier ): ?string {
+		// Un octet nul ferait lever une ValueError à realpath() : une erreur fatale au
+		// lieu du refus que promet la signature.
+		if ( str_contains( $racine . $fichier, "\0" ) ) {
+			return null;
+		}
+
 		$racine_reelle = realpath( $racine );
 
 		if ( false === $racine_reelle ) {
@@ -65,6 +71,10 @@ final class Path {
 	 * @return string[] Chemins absolus réels.
 	 */
 	public static function fichiers_php( string $repertoire ): array {
+		if ( str_contains( $repertoire, "\0" ) ) {
+			return array();
+		}
+
 		$racine = realpath( $repertoire );
 
 		if ( false === $racine || ! is_dir( $racine ) ) {

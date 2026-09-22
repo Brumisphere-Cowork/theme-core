@@ -27,6 +27,14 @@
 		webspace IONOS. La borne basse est donc celle du composer.json, pas celle du
 		poste de développement.
 	-->
+	<!-- Crochets publics nommés brumisphere/core/… : « / » admis comme séparateur. Les
+	     renommer casserait les thèmes clients qui s'y accrochent. -->
+	<rule ref="WordPress.NamingConventions.ValidHookName">
+		<properties>
+			<property name="additionalWordDelimiters" value="/"/>
+		</properties>
+	</rule>
+
 	<rule ref="PHPCompatibilityWP"/>
 	<config name="testVersion" value="8.2-"/>
 	<config name="minimum_wp_version" value="6.5"/>
